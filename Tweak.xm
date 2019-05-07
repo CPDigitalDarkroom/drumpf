@@ -47,10 +47,10 @@
 
 - (void)setViewModel:(id)model options:(unsigned long long)arg2 account:(TFNTwitterAccount *)account {
 	%orig;
-
+	
 	NSString *expandedText = @"";
 	NSString *username = @"";
-
+	
 	if([model isKindOfClass:%c(TFNTwitterStatus)]) {
 		expandedText = ((TFNTwitterStatus *) model).textWithExpandedURLs;
 		username = ((TFNTwitterStatus *) model).fromUser.username;
@@ -58,17 +58,18 @@
 		expandedText = ((T1URTTimelineStatusItemViewModel *) model).text;
 		username = ((T1URTTimelineStatusItemViewModel *) model).fromUserName;	
 	}
-
+	
 	if(self.visibleBodyTextView) {
 		if([username containsString:@"realDonaldTrump"]){
 			TFNAttributedTextView *textView = [self.visibleBodyTextView valueForKey:@"_bodyTextView"];
 			TFNAttributedTextModel *textModel = textView.textModel;
-
-			// FONT NAMES
+			
+			// FONT NAMES -- have had issues loading these fonts. Some crash?
 			// font1: Comic Sans MS
 			// font2: Colored Crayons
 			// font3: DK Crayon Crumble -- same as the one I added
 			// font4: Still 6 but almost 7
+			
 			NSMutableAttributedString  *attrString = [[NSMutableAttributedString alloc] initWithString:expandedText];
 			[attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"DK Crayon Crumble" size:18] range:NSMakeRange(0, expandedText.length)];
 			[attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.929 green:0.0392 blue:0.247 alpha:1] range:NSMakeRange(0, expandedText.length)]; 
@@ -82,8 +83,8 @@
 %end
 
 %ctor {
-	static dispatch_once_t onceToken;
 	
+	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([@"/Library/Application Support/drumpf/CrayonCrumble.ttf" UTF8String]);
 		CGFontRef font = CGFontCreateWithDataProvider(dataProvider);
