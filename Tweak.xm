@@ -66,9 +66,9 @@
 
 			NSMutableAttributedString  *attrString = [[NSMutableAttributedString alloc] initWithString:expandedText];
 			[attrString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"DK Crayon Crumble" size:18] range:NSMakeRange(0, expandedText.length)];
+			[attrString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.929 green:0.0392 blue:0.247 alpha:1] range:NSMakeRange(0, expandedText.length)]; 
 			textModel.attributedString = attrString;
 			[textView setTextModel:textModel];
-			
 		}
 	}
 	
@@ -78,11 +78,12 @@
 
 %ctor {
 	static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+	
+	dispatch_once(&onceToken, ^{
 		CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([@"/Library/Application Support/drumpf/CrayonCrumble.ttf" UTF8String]);
 		CGFontRef font = CGFontCreateWithDataProvider(dataProvider);
 		CGDataProviderRelease(dataProvider);
-        CTFontManagerRegisterGraphicsFont(font, nil);
-        CGFontRelease(font);
-    });
+		CTFontManagerRegisterGraphicsFont(font, nil);
+		CGFontRelease(font);
+	});
 }
