@@ -1,0 +1,9 @@
+Package: com.cpdigitaldarkroom.drumpf
+Name: drumpf
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Use Crayon font for Trump Tweets
+Maintainer: CP Digital Darkroom <tweaks@cpdigitaldarkroom.support>
+Author: CP Digital Darkroom <tweaks@cpdigitaldarkroom.support>
+Section: Tweaks
